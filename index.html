@@ -3,60 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gerador de M3U</title>
+<title>Gerador de M3U | Cyber-Tech</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+/* Variáveis de Cores para os Modos */
+:root {
+    --bg-body: #09090b;
+    --bg-panel: rgba(20, 20, 23, 0.85);
+    --bg-card: #18181b;
+    --border: rgba(255, 255, 255, 0.08);
+    --text-main: #f4f4f5;
+    --text-muted: #a1a1aa;
+    --bg-input: #141417;
+    --accent: #6366f1;
+    --accent-hover: #4f46e5;
+    --bg-code: #09090b;
+    --shadow: rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="light"] {
+    --bg-body: #f4f4f5;
+    --bg-panel: rgba(255, 255, 255, 0.9);
+    --bg-card: #ffffff;
+    --border: rgba(0, 0, 0, 0.08);
+    --text-main: #09090b;
+    --text-muted: #71717a;
+    --bg-input: #f4f4f5;
+    --accent: #4f46e5;
+    --accent-hover: #3730a3;
+    --bg-code: #f4f4f5;
+    --shadow: rgba(0, 0, 0, 0.05);
+}
+
 * {
     box-sizing: border-box;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    letter-spacing: -0.022em;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 body {
     margin: 0;
     padding: 0;
-    background-color: #f5f5f7; /* Cor clássica de fundo da Apple */
-    color: #1d1d1f; /* Preto suave da Apple */
+    background-color: var(--bg-body);
+    color: var(--text-main);
     display: flex;
     justify-content: center;
-    padding: 80px 20px;
+    padding: 60px 20px;
     min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
 }
 
-/* Container Principal */
+/* Painel Principal */
 .panel {
     width: 100%;
     max-width: 840px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 28px;
-    border: 1px solid rgba(0, 0, 0, 0.04);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
-    padding: 50px;
+    background: var(--bg-panel);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 40px var(--shadow);
+    padding: 40px;
+    position: relative;
 }
 
-/* Cabeçalho Premium */
-.header {
-    text-align: center;
-    font-size: 34px;
+/* Topo do Painel com Título e Botão de Tema */
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.header-title {
+    font-size: 28px;
     font-weight: 700;
-    color: #1d1d1f;
-    margin-bottom: 40px;
+    letter-spacing: -0.5px;
 }
 
-/* Área de Inputs */
+/* Botão Alternador de Tema */
+.theme-toggle {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    padding: 10px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+.theme-toggle:hover {
+    transform: translateY(-1px);
+}
+
+/* Formulário de Login */
 .login {
     display: flex;
     gap: 16px;
-    margin-bottom: 45px;
-    align-items: center;
+    margin-bottom: 40px;
 }
 
-.input-container {
+.input-group {
     flex: 1;
     position: relative;
     display: flex;
@@ -65,200 +117,180 @@ body {
 
 .login input {
     width: 100%;
-    padding: 16px 20px;
+    padding: 16px 18px;
     border-radius: 14px;
-    border: 1px solid #d2d2d7;
-    background: #fff;
-    color: #1d1d1f;
-    font-size: 16px;
+    border: 1px solid var(--border);
+    background: var(--bg-input);
+    color: var(--text-main);
+    font-size: 15px;
     outline: none;
-    transition: all 0.2s ease-in-out;
 }
 
-/* Ajuste de padding para o input que tem o botão de olho */
+.login input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
 .login input#pass {
     padding-right: 50px;
 }
 
-.login input:focus {
-    border-color: #0071e3; /* Azul padrão Apple */
-    box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
-}
-
-/* Botão de Mostrar/Ocultar Senha */
 .toggle-password {
     position: absolute;
     right: 16px;
     background: none;
     border: none;
     cursor: pointer;
-    color: #86868b;
+    color: var(--text-muted);
     font-size: 18px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-/* Botão Principal */
-.login button.btn-principal {
-    padding: 16px 32px;
+.btn-generate {
+    padding: 0 28px;
     border-radius: 14px;
     border: none;
-    background: #0071e3;
+    background: var(--accent);
     color: #fff;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
 }
 
-.login button.btn-principal:hover {
-    background: #0077ed;
-}
-
-.login button.btn-principal:active {
-    transform: scale(0.98);
+.btn-generate:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
 }
 
 /* Grid de Resultados */
 #resultado {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    gap: 20px;
 }
 
-/* Cards dos Servidores (Clean Style) */
+/* Cards dos Servidores */
 .server {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 22px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.02), 0 4px 12px rgba(0,0,0,0.03);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.server:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-}
-
-.server-header {
+.server-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
 }
 
 .server-name {
     font-weight: 600;
-    font-size: 18px;
-    color: #1d1d1f;
+    font-size: 17px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #10b981;
 }
 
 .server-link {
-    font-size: 13px;
+    font-size: 12px;
     word-break: break-all;
-    color: #515154;
-    line-height: 1.5;
-    margin-bottom: 24px;
-    background: #f5f5f7;
-    padding: 12px 16px;
+    color: var(--text-muted);
+    background: var(--bg-code);
+    padding: 12px;
     border-radius: 10px;
-    user-select: all;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
 }
 
+/* Ações dos Botões */
 .actions {
     display: flex;
-    gap: 10px;
+    gap: 8px;
 }
 
 .actions button {
     flex: 1;
-    padding: 12px 0;
+    padding: 11px 0;
     border-radius: 10px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s ease;
-}
-
-/* Cores dos Botões Laterais */
-.copy { 
-    background: #f5f5f7; 
-    color: #0071e3; 
+    font-size: 13px;
     font-weight: 600;
-}
-.copy:hover { background: #e8e8ed; }
-
-.dns { 
-    background: transparent; 
-    color: #515154;
-    border: 1px solid #d2d2d7;
-}
-.dns:hover { 
-    background: #f5f5f7; 
+    cursor: pointer;
+    border: 1px solid var(--border);
 }
 
-/* Feedback de sucesso */
-.actions button.copiado { 
-    background: #34c759 !important; /* Verde Apple */
-    color: #fff !important; 
-    border-color: #34c759 !important;
+.btn-copy-m3u {
+    background: var(--accent);
+    color: white;
+    border: none !important;
+}
+.btn-copy-m3u:hover { background: var(--accent-hover); }
+
+.btn-copy-dns {
+    background: transparent;
+    color: var(--text-main);
+}
+.btn-copy-dns:hover { background: var(--bg-input); }
+
+/* Feedback "Copiado" */
+.actions button.copied {
+    background: #10b981 !important;
+    color: white !important;
+    border: none !important;
 }
 
-/* Botão de Link Externo minimalista */
-.testar { 
-    background: #f5f5f7; 
-    color: #86868b; 
-    max-width: 48px;
+.btn-test {
+    background: transparent;
+    color: var(--text-muted);
+    max-width: 42px;
 }
-.testar:hover { 
-    background: #e8e8ed;
-    color: #1d1d1f; 
-}
-
-/* Ponto de status sutil */
-.status-badge {
-    width: 7px;
-    height: 7px;
-    background-color: #34c759;
-    border-radius: 50%;
+.btn-test:hover {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.2);
 }
 
-/* Responsividade */
-@media(max-width: 720px){
-    .login { flex-direction: column; align-items: stretch; }
-    .input-container { width: 100%; }
+@media(max-width: 700px){
+    .login { flex-direction: column; }
+    .btn-generate { padding: 16px; }
     #resultado { grid-template-columns: 1fr; }
-    .panel { padding: 24px; }
+    .panel { padding: 25px; }
 }
 </style>
 </head>
 <body>
 
 <div class="panel">
-    <div class="header">Playlist Generator</div>
+    <div class="panel-header">
+        <div class="header-title">M3U Generator</div>
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <span id="theme-icon">🌙</span> <span id="theme-text">Modo Escuro</span>
+        </button>
+    </div>
 
     <div class="login">
-        <div class="input-container">
+        <div class="input-group">
             <input id="user" placeholder="Usuário">
         </div>
-        <div class="input-container">
+        <div class="input-group">
             <input id="pass" type="password" placeholder="Senha">
             <button class="toggle-password" onclick="toggleSenha()" id="toggleBtn" type="button">👁️</button>
         </div>
-        <button class="btn-principal" onclick="gerar()">Gerar Links</button>
+        <button class="btn-generate" onclick="gerar()">Gerar Painel</button>
     </div>
 
     <div id="resultado"></div>
 </div>
 
 <script>
-// Lista de servidores reordenada conforme solicitado
 const servidores = [
     {nome:"🧿 Seven", url:"http://seven.blcplay.com"},
     {nome:"💣 Explosion", url:"http://nsync.space"},
@@ -270,6 +302,24 @@ const servidores = [
     {nome:"🌬️ Venus", url:"http://venus.blcplay.com"},
     {nome:"🔥 Fire", url:"http://fire.kkrototv.fun"}
 ];
+
+// Função para Alternar Modo Claro / Escuro
+function toggleTheme() {
+    const body = document.documentElement;
+    const currentTheme = body.getAttribute("data-theme");
+    const themeIcon = document.getElementById("theme-icon");
+    const themeText = document.getElementById("theme-text");
+
+    if (currentTheme === "light") {
+        body.removeAttribute("data-theme");
+        themeIcon.innerText = "🌙";
+        themeText.innerText = "Modo Escuro";
+    } else {
+        body.setAttribute("data-theme", "light");
+        themeIcon.innerText = "☀️";
+        themeText.innerText = "Modo Claro";
+    }
+}
 
 function toggleSenha() {
     const input = document.getElementById("pass");
@@ -288,7 +338,7 @@ function gerar(){
     let pass = document.getElementById("pass").value;
 
     if(!user || !pass){
-        alert("Introduza o utilizador e a senha.");
+        alert("Preencha o usuário e a senha.");
         return;
     }
 
@@ -302,32 +352,32 @@ function gerar(){
         div.className = "server";
         div.innerHTML = `
             <div>
-                <div class="server-header">
+                <div class="server-top">
                     <div class="server-name">${s.nome}</div>
-                    <div class="status-badge"></div>
+                    <div class="status-dot"></div>
                 </div>
                 <div class="server-link">${link}</div>
             </div>
             <div class="actions">
-                <button id="m3u${i}" class="copy">Copiar M3U</button>
-                <button id="dns${i}" class="dns">DNS</button>
-                <button class="testar" onclick="testar('${s.url}')" title="Testar link">↗</button>
+                <button id="m3u${i}" class="btn-copy-m3u">Copiar M3U</button>
+                <button id="dns${i}" class="btn-copy-dns">DNS</button>
+                <button class="btn-test" onclick="testar('${s.url}')" title="Testar conexão">↗</button>
             </div>
         `;
         resultado.appendChild(div);
 
         document.getElementById(`m3u${i}`).onclick = function(){
             navigator.clipboard.writeText(link);
-            this.innerText = "Copiado";
-            this.classList.add("copiado");
-            setTimeout(() => { this.innerText = "Copiar M3U"; this.classList.remove("copiado"); }, 1800);
+            this.innerText = "Copiado!";
+            this.classList.add("copied");
+            setTimeout(() => { this.innerText = "Copiar M3U"; this.classList.remove("copied"); }, 1800);
         };
 
         document.getElementById(`dns${i}`).onclick = function(){
             navigator.clipboard.writeText(s.url);
-            this.innerText = "Copiado";
-            this.classList.add("copiado");
-            setTimeout(() => { this.innerText = "DNS"; this.classList.remove("copiado"); }, 1800);
+            this.innerText = "Copiado!";
+            this.classList.add("copied");
+            setTimeout(() => { this.innerText = "DNS"; this.classList.remove("copied"); }, 1800);
         };
     });
 }
