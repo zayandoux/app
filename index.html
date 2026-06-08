@@ -189,29 +189,6 @@ input:checked + .slider::after {
     border-color: var(--accent);
 }
 
-/* Ajuste do campo de senha para caber o texto clássico */
-.input-wrapper input#pass {
-    padding-right: 68px;
-}
-
-/* Texto Clássico de Mostrar/Ocultar */
-.toggle-password {
-    position: absolute;
-    right: 14px;
-    bottom: 15px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--text-muted);
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-.toggle-password:hover {
-    color: var(--text-main);
-}
-
 .btn-submit {
     width: 100%;
     padding: 16px;
@@ -387,8 +364,8 @@ input:checked + .slider::after {
             </div>
             <div class="input-wrapper">
                 <label>Senha</label>
-                <input id="pass" type="password" placeholder="Digite a senha">
-                <button class="toggle-password" onclick="toggleSenha()" id="toggleBtn" type="button">Mostrar</button>
+                <!-- Definido como text para ficar sempre visível -->
+                <input id="pass" type="text" placeholder="Digite a senha">
             </div>
             <button class="btn-submit" onclick="gerar()">Gerar Acessos</button>
         </div>
@@ -428,18 +405,6 @@ function toggleTheme() {
         body.setAttribute("data-theme", "light");
     } else {
         body.removeAttribute("data-theme");
-    }
-}
-
-function toggleSenha() {
-    const input = document.getElementById("pass");
-    const btn = document.getElementById("toggleBtn");
-    if (input.type === "password") {
-        input.type = "text";
-        btn.innerText = "Ocultar";
-    } else {
-        input.type = "password";
-        btn.innerText = "Mostrar";
     }
 }
 
