@@ -3,291 +3,321 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gerador de M3U | Cyber-Tech</title>
+<title>M3U Hub | Dashboard</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* Variáveis de Cores para os Modos */
+/* Sistema de Cores e Temas */
 :root {
-    --bg-body: #09090b;
-    --bg-panel: rgba(20, 20, 23, 0.85);
-    --bg-card: #18181b;
-    --border: rgba(255, 255, 255, 0.08);
-    --text-main: #f4f4f5;
-    --text-muted: #a1a1aa;
-    --bg-input: #141417;
-    --accent: #6366f1;
-    --accent-hover: #4f46e5;
-    --bg-code: #09090b;
-    --shadow: rgba(0, 0, 0, 0.5);
+    --bg-main: #0c0a09;
+    --bg-sidebar: #1c1917;
+    --bg-card: #262220;
+    --border: rgba(255, 255, 255, 0.06);
+    --text-main: #f5f5f4;
+    --text-muted: #a8a29e;
+    --bg-input: #1c1917;
+    --accent: #f97316; /* Laranja Moderno */
+    --accent-hover: #ea580c;
+    --shadow: rgba(0,0,0,0.4);
 }
 
 [data-theme="light"] {
-    --bg-body: #f4f4f5;
-    --bg-panel: rgba(255, 255, 255, 0.9);
-    --bg-card: #ffffff;
+    --bg-main: #fafaf9;
+    --bg-sidebar: #ffffff;
+    --bg-card: #f5f5f4;
     --border: rgba(0, 0, 0, 0.08);
-    --text-main: #09090b;
-    --text-muted: #71717a;
-    --bg-input: #f4f4f5;
-    --accent: #4f46e5;
-    --accent-hover: #3730a3;
-    --bg-code: #f4f4f5;
-    --shadow: rgba(0, 0, 0, 0.05);
+    --text-main: #1c1917;
+    --text-muted: #78716c;
+    --bg-input: #f5f5f4;
+    --accent: #ea580c;
+    --accent-hover: #c2410c;
+    --shadow: rgba(0,0,0,0.05);
 }
 
 * {
     box-sizing: border-box;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--bg-body);
+    background-color: var(--bg-main);
     color: var(--text-main);
     display: flex;
-    justify-content: center;
-    padding: 60px 20px;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* Painel Principal */
-.panel {
-    width: 100%;
-    max-width: 840px;
-    background: var(--bg-panel);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-radius: 24px;
-    border: 1px solid var(--border);
-    box-shadow: 0 20px 40px var(--shadow);
-    padding: 40px;
-    position: relative;
-}
-
-/* Topo do Painel com Título e Botão de Tema */
-.panel-header {
+/* --- COLUNA ESQUERDA: SIDEBAR DE CONTROLE --- */
+.sidebar {
+    width: 340px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
+    padding: 40px 30px;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 35px;
+    box-shadow: 10px 0 30px var(--shadow);
+    z-index: 10;
 }
 
-.header-title {
-    font-size: 28px;
+.brand h2 {
+    font-size: 24px;
     font-weight: 700;
     letter-spacing: -0.5px;
 }
-
-/* Botão Alternador de Tema */
-.theme-toggle {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    color: var(--text-main);
-    padding: 10px 14px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 2px 8px var(--shadow);
-}
-.theme-toggle:hover {
-    transform: translateY(-1px);
+.brand p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
 }
 
-/* Formulário de Login */
-.login {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 40px;
+/* Formulário Vertical */
+.form-container {
+    margin-top: 40px;
+    flex-grow: 1;
 }
 
-.input-group {
-    flex: 1;
+.input-wrapper {
     position: relative;
-    display: flex;
-    align-items: center;
+    margin-bottom: 20px;
 }
 
-.login input {
+.input-wrapper label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+}
+
+.input-wrapper input {
     width: 100%;
-    padding: 16px 18px;
-    border-radius: 14px;
+    padding: 14px 16px;
+    border-radius: 12px;
     border: 1px solid var(--border);
-    background: var(--bg-input);
+    background-color: var(--bg-main);
     color: var(--text-main);
     font-size: 15px;
     outline: none;
 }
-
-.login input:focus {
+.input-wrapper input:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-}
-
-.login input#pass {
-    padding-right: 50px;
 }
 
 .toggle-password {
     position: absolute;
     right: 16px;
+    bottom: 12px;
     background: none;
     border: none;
     cursor: pointer;
     color: var(--text-muted);
-    font-size: 18px;
+    font-size: 16px;
 }
 
-.btn-generate {
-    padding: 0 28px;
-    border-radius: 14px;
+.btn-submit {
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
     border: none;
-    background: var(--accent);
-    color: #fff;
+    background-color: var(--accent);
+    color: white;
     font-weight: 600;
     font-size: 15px;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
+    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
+}
+.btn-submit:hover {
+    background-color: var(--accent-hover);
 }
 
-.btn-generate:hover {
-    background: var(--accent-hover);
-    transform: translateY(-1px);
+/* Base da Sidebar: Botão de Tema */
+.theme-box {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
 }
-
-/* Grid de Resultados */
-#resultado {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-/* Cards dos Servidores */
-.server {
-    background: var(--bg-card);
+.btn-theme {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
     border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 22px;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* --- COLUNA DIREITA: CONTEÚDO / LISTA --- */
+.main-content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto; /* Rolagem apenas aqui */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
-.server-top {
+.main-content h3 {
+    font-size: 20px;
+    margin-bottom: 24px;
+    font-weight: 600;
+}
+
+/* Lista Layout em Linhas em vez de Cards */
+.server-list {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.server-row {
+    background-color: var(--bg-sidebar);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 24px;
+    display: flex;
     align-items: center;
-    margin-bottom: 12px;
+    justify-content: space-between;
+    gap: 20px;
+}
+.server-row:hover {
+    border-color: var(--text-muted);
+}
+
+.server-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 180px;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #22c55e;
 }
 
 .server-name {
     font-weight: 600;
-    font-size: 17px;
+    font-size: 16px;
 }
 
-.status-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #10b981;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #10b981;
-}
-
-.server-link {
-    font-size: 12px;
-    word-break: break-all;
+.server-url-display {
+    flex-grow: 1;
+    font-size: 13px;
     color: var(--text-muted);
-    background: var(--bg-code);
-    padding: 12px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    border: 1px solid var(--border);
+    background-color: var(--bg-main);
+    padding: 10px 14px;
+    border-radius: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 320px;
 }
 
-/* Ações dos Botões */
-.actions {
+.row-actions {
     display: flex;
     gap: 8px;
 }
 
-.actions button {
-    flex: 1;
-    padding: 11px 0;
-    border-radius: 10px;
+.row-actions button {
+    padding: 10px 16px;
+    border-radius: 8px;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     border: 1px solid var(--border);
-}
-
-.btn-copy-m3u {
-    background: var(--accent);
-    color: white;
-    border: none !important;
-}
-.btn-copy-m3u:hover { background: var(--accent-hover); }
-
-.btn-copy-dns {
-    background: transparent;
+    background-color: var(--bg-card);
     color: var(--text-main);
 }
-.btn-copy-dns:hover { background: var(--bg-input); }
 
-/* Feedback "Copiado" */
-.actions button.copied {
-    background: #10b981 !important;
+.btn-m3u {
+    background-color: var(--accent) !important;
+    color: white !important;
+    border: none !important;
+}
+.btn-m3u:hover { background-color: var(--accent-hover) !important; }
+
+.row-actions button.copied {
+    background-color: #22c55e !important;
     color: white !important;
     border: none !important;
 }
 
 .btn-test {
-    background: transparent;
-    color: var(--text-muted);
-    max-width: 42px;
+    padding: 10px !important;
 }
 .btn-test:hover {
     color: #ef4444;
-    background: rgba(239, 68, 68, 0.1);
-    border-color: rgba(239, 68, 68, 0.2);
 }
 
-@media(max-width: 700px){
-    .login { flex-direction: column; }
-    .btn-generate { padding: 16px; }
-    #resultado { grid-template-columns: 1fr; }
-    .panel { padding: 25px; }
+/* Estado Vazio (Antes de gerar) */
+.empty-state {
+    text-align: center;
+    padding: 80px 0;
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+/* Responsivo para Telas menores (vira topo/baixo) */
+@media(max-width: 850px){
+    body { flex-direction: column; overflow: auto; height: auto; }
+    .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .main-content { overflow-y: visible; }
+    .server-row { flex-direction: column; align-items: stretch; text-align: center; }
+    .server-info { justify-content: center; }
+    .server-url-display { max-width: 100%; }
+    .row-actions { justify-content: center; }
 }
 </style>
 </head>
 <body>
 
-<div class="panel">
-    <div class="panel-header">
-        <div class="header-title">M3U Generator</div>
-        <button class="theme-toggle" onclick="toggleTheme()">
+<!-- Sidebar Lateral Fixa -->
+<div class="sidebar">
+    <div class="top-section">
+        <div class="brand">
+            <h2>M3U Hub Panel</h2>
+            <p>Gerenciador de Conexões</p>
+        </div>
+
+        <div class="form-container">
+            <div class="input-wrapper">
+                <label>Usuário</label>
+                <input id="user" placeholder="Digite o acesso">
+            </div>
+            <div class="input-wrapper">
+                <label>Senha</label>
+                <input id="pass" type="password" placeholder="Digite a senha">
+                <button class="toggle-password" onclick="toggleSenha()" id="toggleBtn" type="button">👁️</button>
+            </div>
+            <button class="btn-submit" onclick="gerar()">Gerar Acessos</button>
+        </div>
+    </div>
+
+    <div class="theme-box">
+        <button class="btn-theme" onclick="toggleTheme()">
             <span id="theme-icon">🌙</span> <span id="theme-text">Modo Escuro</span>
         </button>
     </div>
+</div>
 
-    <div class="login">
-        <div class="input-group">
-            <input id="user" placeholder="Usuário">
-        </div>
-        <div class="input-group">
-            <input id="pass" type="password" placeholder="Senha">
-            <button class="toggle-password" onclick="toggleSenha()" id="toggleBtn" type="button">👁️</button>
-        </div>
-        <button class="btn-generate" onclick="gerar()">Gerar Painel</button>
+<!-- Conteúdo Principal Dinâmico -->
+<div class="main-content">
+    <h3>Servidores Disponíveis</h3>
+    <div id="resultado">
+        <div class="empty-state">Insira as credenciais ao lado e clique em "Gerar Acessos".</div>
     </div>
-
-    <div id="resultado"></div>
 </div>
 
 <script>
@@ -303,7 +333,6 @@ const servidores = [
     {nome:"🔥 Fire", url:"http://fire.kkrototv.fun"}
 ];
 
-// Função para Alternar Modo Claro / Escuro
 function toggleTheme() {
     const body = document.documentElement;
     const currentTheme = body.getAttribute("data-theme");
@@ -338,33 +367,35 @@ function gerar(){
     let pass = document.getElementById("pass").value;
 
     if(!user || !pass){
-        alert("Preencha o usuário e a senha.");
+        alert("Preencha usuário e senha na barra lateral.");
         return;
     }
 
     let resultado = document.getElementById("resultado");
     resultado.innerHTML = "";
 
+    let listContainer = document.createElement("div");
+    listContainer.className = "server-list";
+
     servidores.forEach((s,i)=>{
         let link = `${s.url}/get.php?username=${user}&password=${pass}&type=m3u_plus&output=mpegts`;
 
-        let div = document.createElement("div");
-        div.className = "server";
-        div.innerHTML = `
-            <div>
-                <div class="server-top">
-                    <div class="server-name">${s.nome}</div>
-                    <div class="status-dot"></div>
-                </div>
-                <div class="server-link">${link}</div>
+        let row = document.createElement("div");
+        row.className = "server-row";
+        row.innerHTML = `
+            <div class="server-info">
+                <div class="status-indicator"></div>
+                <div class="server-name">${s.nome}</div>
             </div>
-            <div class="actions">
-                <button id="m3u${i}" class="btn-copy-m3u">Copiar M3U</button>
-                <button id="dns${i}" class="btn-copy-dns">DNS</button>
-                <button class="btn-test" onclick="testar('${s.url}')" title="Testar conexão">↗</button>
+            <div class="server-url-display">${link}</div>
+            <div class="row-actions">
+                <button id="m3u${i}" class="btn-m3u">Copiar M3U</button>
+                <button id="dns${i}">DNS</button>
+                <button class="btn-test" onclick="testar('${s.url}')" title="Testar">↗</button>
             </div>
         `;
-        resultado.appendChild(div);
+        listContainer.appendChild(row);
+        resultado.appendChild(listContainer);
 
         document.getElementById(`m3u${i}`).onclick = function(){
             navigator.clipboard.writeText(link);
