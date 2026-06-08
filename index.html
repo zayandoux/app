@@ -110,7 +110,6 @@ body {
     padding: 0 6px;
 }
 
-/* Ícones de fundo fixos */
 .slider::before {
     content: "🌙";
     font-size: 12px;
@@ -126,7 +125,6 @@ body {
     transition: 0.3s;
 }
 
-/* A bolinha que corre */
 .knob {
     position: absolute;
     height: 22px;
@@ -140,7 +138,6 @@ body {
     z-index: 2;
 }
 
-/* Estados quando o Switch é Ativado (Modo Claro) */
 input:checked + .slider {
     background-color: var(--accent);
 }
@@ -192,15 +189,27 @@ input:checked + .slider::after {
     border-color: var(--accent);
 }
 
+/* Ajuste do campo de senha para caber o texto clássico */
+.input-wrapper input#pass {
+    padding-right: 68px;
+}
+
+/* Texto Clássico de Mostrar/Ocultar */
 .toggle-password {
     position: absolute;
-    right: 16px;
-    bottom: 12px;
+    right: 14px;
+    bottom: 15px;
     background: none;
     border: none;
     cursor: pointer;
     color: var(--text-muted);
-    font-size: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.toggle-password:hover {
+    color: var(--text-main);
 }
 
 .btn-submit {
@@ -363,7 +372,6 @@ input:checked + .slider::after {
                 <h2>M3U Hub Panel</h2>
                 <p>Gerenciador</p>
             </div>
-            <!-- Interruptor Dinâmico de Sol e Lua -->
             <label class="theme-switch" title="Alternar Tema">
                 <input type="checkbox" id="theme-toggle-chk" onchange="toggleTheme()">
                 <div class="slider">
@@ -380,7 +388,7 @@ input:checked + .slider::after {
             <div class="input-wrapper">
                 <label>Senha</label>
                 <input id="pass" type="password" placeholder="Digite a senha">
-                <button class="toggle-password" onclick="toggleSenha()" id="toggleBtn" type="button">👁️</button>
+                <button class="toggle-password" onclick="toggleSenha()" id="toggleBtn" type="button">Mostrar</button>
             </div>
             <button class="btn-submit" onclick="gerar()">Gerar Acessos</button>
         </div>
@@ -428,10 +436,10 @@ function toggleSenha() {
     const btn = document.getElementById("toggleBtn");
     if (input.type === "password") {
         input.type = "text";
-        btn.innerText = "🙈";
+        btn.innerText = "Ocultar";
     } else {
         input.type = "password";
-        btn.innerText = "👁️";
+        btn.innerText = "Mostrar";
     }
 }
 
