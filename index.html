@@ -17,9 +17,10 @@
     --text-main: #f5f5f4;
     --text-muted: #a8a29e;
     --bg-input: #1c1917;
-    --accent: #f97316; /* Laranja Moderno */
+    --accent: #f97316; /* Laranja */
     --accent-hover: #ea580c;
     --shadow: rgba(0,0,0,0.4);
+    --switch-bg: #44403c;
 }
 
 [data-theme="light"] {
@@ -33,6 +34,7 @@
     --accent: #ea580c;
     --accent-hover: #c2410c;
     --shadow: rgba(0,0,0,0.05);
+    --switch-bg: #e7e5e4;
 }
 
 * {
@@ -53,10 +55,10 @@ body {
 
 /* --- COLUNA ESQUERDA: SIDEBAR DE CONTROLE --- */
 .sidebar {
-    width: 340px;
+    width: 320px;
     background-color: var(--bg-sidebar);
     border-right: 1px solid var(--border);
-    padding: 40px 30px;
+    padding: 35px 25px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -64,15 +66,71 @@ body {
     z-index: 10;
 }
 
+/* Header da Sidebar modificado para alinhar a marca e o Interruptor */
+.brand-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .brand h2 {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
     letter-spacing: -0.5px;
 }
 .brand p {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-muted);
-    margin-top: 4px;
+    margin-top: 2px;
+}
+
+/* INTERRUPTOR (SWITCH STYLE) */
+.switch-container {
+    display: inline-flex;
+    align-items: center;
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.theme-switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--switch-bg);
+    transition: .3s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+input:checked + .slider {
+    background-color: var(--accent);
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
 }
 
 /* Formulário Vertical */
@@ -88,7 +146,7 @@ body {
 
 .input-wrapper label {
     display: block;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -137,31 +195,20 @@ body {
     background-color: var(--accent-hover);
 }
 
-/* Base da Sidebar: Botão de Tema */
-.theme-box {
+/* Rodapé Simples da Sidebar */
+.sidebar-footer {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
     border-top: 1px solid var(--border);
-    padding-top: 20px;
-}
-.btn-theme {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+    padding-top: 15px;
 }
 
 /* --- COLUNA DIREITA: CONTEÚDO / LISTA --- */
 .main-content {
     flex: 1;
-    padding: 40px;
-    overflow-y: auto; /* Rolagem apenas aqui */
+    padding: 45px;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
 }
@@ -172,32 +219,34 @@ body {
     font-weight: 600;
 }
 
-/* Lista Layout em Linhas em vez de Cards */
+/* Lista Layout Compactado */
 .server-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .server-row {
     background-color: var(--bg-sidebar);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 16px 24px;
+    border-radius: 12px;
+    padding: 12px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: 15px;
 }
 .server-row:hover {
     border-color: var(--text-muted);
 }
 
-.server-info {
+/* Bloco Unificado: Nome + Link na Frente */
+.server-meta-block {
     display: flex;
     align-items: center;
-    gap: 16px;
-    min-width: 180px;
+    gap: 12px;
+    flex: 1;
+    min-width: 0; /* Permite encolhimento correto do link text */
 }
 
 .status-indicator {
@@ -205,35 +254,39 @@ body {
     height: 8px;
     border-radius: 50%;
     background-color: #22c55e;
+    flex-shrink: 0;
 }
 
 .server-name {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 15px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .server-url-display {
-    flex-grow: 1;
     font-size: 13px;
     color: var(--text-muted);
     background-color: var(--bg-main);
-    padding: 10px 14px;
-    border-radius: 8px;
+    padding: 6px 12px;
+    border-radius: 6px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 320px;
+    text-overflow: ellipsis; /* Corta o link sutilmente com "..." */
+    max-width: 280px;
+    border: 1px solid var(--border);
 }
 
 .row-actions {
     display: flex;
-    gap: 8px;
+    gap: 6px;
+    flex-shrink: 0;
 }
 
 .row-actions button {
-    padding: 10px 16px;
+    padding: 8px 14px;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     border: 1px solid var(--border);
@@ -255,13 +308,13 @@ body {
 }
 
 .btn-test {
-    padding: 10px !important;
+    padding: 8px 10px !important;
 }
 .btn-test:hover {
     color: #ef4444;
 }
 
-/* Estado Vazio (Antes de gerar) */
+/* Estado Vazio */
 .empty-state {
     text-align: center;
     padding: 80px 0;
@@ -269,14 +322,14 @@ body {
     font-size: 15px;
 }
 
-/* Responsivo para Telas menores (vira topo/baixo) */
+/* Responsivo */
 @media(max-width: 850px){
     body { flex-direction: column; overflow: auto; height: auto; }
     .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
-    .main-content { overflow-y: visible; }
+    .main-content { overflow-y: visible; padding: 25px; }
     .server-row { flex-direction: column; align-items: stretch; text-align: center; }
-    .server-info { justify-content: center; }
-    .server-url-display { max-width: 100%; }
+    .server-meta-block { justify-content: center; }
+    .server-url-display { max-width: 100%; width: 100%; }
     .row-actions { justify-content: center; }
 }
 </style>
@@ -286,9 +339,18 @@ body {
 <!-- Sidebar Lateral Fixa -->
 <div class="sidebar">
     <div class="top-section">
-        <div class="brand">
-            <h2>M3U Hub Panel</h2>
-            <p>Gerenciador de Conexões</p>
+        <div class="brand-wrapper">
+            <div class="brand">
+                <h2>M3U Hub Panel</h2>
+                <p>Gerenciador</p>
+            </div>
+            <!-- Botãozinho Interruptor Inteligente -->
+            <div class="switch-container">
+                <label class="theme-switch" title="Mudar Tema">
+                    <input type="checkbox" id="theme-toggle-chk" onchange="toggleTheme()">
+                    <span class="slider"></span>
+                </label>
+            </div>
         </div>
 
         <div class="form-container">
@@ -305,10 +367,8 @@ body {
         </div>
     </div>
 
-    <div class="theme-box">
-        <button class="btn-theme" onclick="toggleTheme()">
-            <span id="theme-icon">🌙</span> <span id="theme-text">Modo Escuro</span>
-        </button>
+    <div class="sidebar-footer">
+        v2.0 • Premium Access
     </div>
 </div>
 
@@ -333,20 +393,15 @@ const servidores = [
     {nome:"🔥 Fire", url:"http://fire.kkrototv.fun"}
 ];
 
+// Lógica do Interruptor de Tema
 function toggleTheme() {
     const body = document.documentElement;
-    const currentTheme = body.getAttribute("data-theme");
-    const themeIcon = document.getElementById("theme-icon");
-    const themeText = document.getElementById("theme-text");
+    const isChecked = document.getElementById("theme-toggle-chk").checked;
 
-    if (currentTheme === "light") {
-        body.removeAttribute("data-theme");
-        themeIcon.innerText = "🌙";
-        themeText.innerText = "Modo Escuro";
-    } else {
+    if (isChecked) {
         body.setAttribute("data-theme", "light");
-        themeIcon.innerText = "☀️";
-        themeText.innerText = "Modo Claro";
+    } else {
+        body.removeAttribute("data-theme");
     }
 }
 
@@ -383,11 +438,11 @@ function gerar(){
         let row = document.createElement("div");
         row.className = "server-row";
         row.innerHTML = `
-            <div class="server-info">
+            <div class="server-meta-block">
                 <div class="status-indicator"></div>
                 <div class="server-name">${s.nome}</div>
+                <div class="server-url-display">${link}</div>
             </div>
-            <div class="server-url-display">${link}</div>
             <div class="row-actions">
                 <button id="m3u${i}" class="btn-m3u">Copiar M3U</button>
                 <button id="dns${i}">DNS</button>
