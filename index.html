@@ -1,100 +1,19 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FROM - A Calmaria que Vem Antes</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    background:#0d0d0d;
-    color:white;
-    font-family:Arial, sans-serif;
-}
-
-.hero{
-    height:100vh;
-    background-size:cover;
-    background-position:center;
-    position:relative;
-}
-
-.overlay{
-    position:absolute;
-    inset:0;
-    background:linear-gradient(
-        to top,
-        rgba(0,0,0,1),
-        rgba(0,0,0,0.3)
-    );
-}
-
-.content{
-    position:absolute;
-    bottom:80px;
-    left:60px;
-    z-index:2;
-    max-width:600px;
-}
-
-h1{
-    font-size:3rem;
-    margin-bottom:15px;
-}
-
-.info{
-    color:#cfcfcf;
-    margin-bottom:20px;
-}
-
-.btn{
-    display:inline-block;
-    background:#fff;
-    color:#000;
-    padding:15px 35px;
-    text-decoration:none;
-    border-radius:5px;
-    font-weight:bold;
-}
-
-.player{
-    width:90%;
-    max-width:1200px;
-    margin:40px auto;
-}
-
-video{
-    width:100%;
-    border-radius:10px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="hero" style="background-image:url('LINK_DA_IMAGEM');">
+<div class="hero">
     <div class="overlay"></div>
 
     <div class="content">
-        <h1>A Calmaria que Vem Antes</h1>
-        <p class="info">FROM • Episódio 9</p>
+        <span class="tag">SÉRIE ORIGINAL</span>
 
-        <a class="btn" href="#assistir">Assistir Agora</a>
+        <h1>A Calmaria que Vem Antes</h1>
+
+        <p>
+            Enquanto a tensão cresce em Fromville, os moradores tentam
+            aproveitar um raro momento de tranquilidade. Mas, como sempre,
+            algo sombrio se aproxima.
+        </p>
+
+        <a href="#assistir" class="btn">
+            ▶ Assistir Episódio
+        </a>
     </div>
 </div>
-
-<div class="player" id="assistir">
-    <video controls>
-        <source src="LINK_DO_VIDEO" type="video/mp4">
-        Seu navegador não suporta vídeo.
-    </video>
-</div>
-
-</body>
-</html>
