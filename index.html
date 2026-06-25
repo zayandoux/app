@@ -7,202 +7,259 @@
 <title>FROM • A Calmaria que Vem Antes</title>
 
 <style>
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-background:#000;
-color:#fff;
-font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;
+body {
+    background: #0a0a0c;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow-x: hidden;
 }
 
-.hero{
-height:55vh;
-background:url('https://api.metro1.com.br/filmes/164,serie-origem-transforma-uma-estrada-em-porta-de-entrada-para-um-suspense-sobre-a-sobrevivencia-e-o-sobrenatural-3.jpg') center center/cover;
-position:relative;
-display:flex;
-align-items:flex-end;
+/* Hero Section */
+.hero {
+    height: 65vh;
+    background: url('https://api.metro1.com.br/filmes/164,serie-origem-transforma-uma-estrada-em-porta-de-entrada-para-um-suspense-sobre-a-sobrevivencia-e-o-sobrenatural-3.jpg') center center/cover;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
 }
 
-.hero::before{
-content:"";
-position:absolute;
-inset:0;
-background:linear-gradient(
-180deg,
-rgba(0,0,0,.1),
-rgba(0,0,0,.45),
-rgba(0,0,0,.95)
-);
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(10, 10, 12, 0.2) 0%,
+        rgba(10, 10, 12, 0.7) 60%,
+        rgba(10, 10, 12, 1) 100%
+    );
 }
 
-.content{
-position:relative;
-z-index:2;
-padding:50px;
-max-width:700px;
+.content {
+    position: relative;
+    z-index: 2;
+    padding: 0 60px 40px;
+    max-width: 800px;
 }
 
-.logo{
-font-size:13px;
-letter-spacing:2px;
-color:#c0c0c0;
-margin-bottom:10px;
+.logo {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #e50914; /* Destaque em vermelho estilo streaming */
+    text-transform: uppercase;
+    margin-bottom: 12px;
 }
 
-h1{
-font-size:64px;
-line-height:1;
-margin-bottom:15px;
+h1 {
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 18px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
-.description{
-font-size:19px;
-line-height:1.6;
-color:#d0d0d0;
+.description {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #b3b3b3;
+    font-weight: 400;
 }
 
-.player{
-max-width:1200px;
-margin:auto;
-padding:30px 20px 80px;
+/* Main Container (Layout em Duas Colunas no Desktop) */
+.main-container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1.8fr;
+    gap: 40px;
+    align-items: start;
 }
 
-.episode-cover{
-width:100%;
-border-radius:24px;
-overflow:hidden;
-margin-bottom:25px;
-box-shadow:0 20px 60px rgba(255,255,255,.08);
+/* Coluna da Esquerda: Info e Capa */
+.info-sidebar {
+    position: sticky;
+    top: 30px;
 }
 
-.episode-cover img{
-width:100%;
-display:block;
+.episode-cover {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease;
 }
 
-.player h2{
-font-size:32px;
-margin-bottom:20px;
+.episode-cover:hover {
+    transform: scale(1.02);
 }
 
-.video-box{
-position:relative;
-padding-top:56.25%;
-border-radius:24px;
-overflow:hidden;
-background:#111;
+.episode-cover img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
 }
 
-.video-box iframe{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-border:none;
+.info-sidebar h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
 }
 
-footer{
-text-align:center;
-padding:40px;
-color:#777;
-font-size:14px;
-border-top:1px solid rgba(255,255,255,.08);
+.info-sidebar .meta {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 20px;
 }
 
-/* MOBILE */
-
-@media(max-width:768px){
-
-.hero{
-height:40vh;
-background-size:cover;
-background-position:center;
+/* Botões de interação fictícios para enriquecer o visual */
+.actions {
+    display: flex;
+    gap: 12px;
 }
 
-.content{
-padding:20px;
+.btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
 }
 
-h1{
-font-size:38px;
+.btn-primary {
+    background: #fff;
+    color: #000;
 }
 
-.description{
-font-size:15px;
+.btn-primary:hover {
+    background: #e6e6e6;
 }
 
-.player{
-padding:20px 12px 60px;
+/* Coluna da Direita: Player de Vídeo */
+.video-container {
+    width: 100%;
 }
 
-.player h2{
-font-size:24px;
+.video-box {
+    position: relative;
+    padding-top: 56.25%; /* Proporção 16:9 */
+    border-radius: 16px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgba(229, 9, 20, 0.05); /* Brilho sutil vermelho ao fundo */
 }
 
-.episode-cover{
-border-radius:16px;
+.video-box iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
-.video-box{
-border-radius:16px;
+/* Footer */
+footer {
+    text-align: center;
+    padding: 40px;
+    color: #555;
+    font-size: 13px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: #070708;
 }
 
+/* Responsividade para Celulares e Tablets */
+@media(max-width: 992px){
+    .main-container {
+        grid-template-columns: 1fr; /* Força uma coluna única */
+        gap: 30px;
+    }
+    
+    .info-sidebar {
+        position: static;
+    }
 }
 
+@media(max-width: 768px){
+    .hero {
+        height: 45vh;
+    }
+
+    .content {
+        padding: 0 20px 30px;
+    }
+
+    h1 {
+        font-size: 34px;
+    }
+
+    .description {
+        font-size: 15px;
+    }
+
+    .main-container {
+        padding: 20px 16px 60px;
+    }
+
+    .info-sidebar h2 {
+        font-size: 22px;
+    }
+}
 </style>
 </head>
 
 <body>
 
 <section class="hero">
-
-<div class="content">
-
-<div class="logo">
-FROM • TEMPORADA 4
-</div>
-
-<h1>A Calmaria que Vem Antes</h1>
-
-<p class="description">
-Um raro momento de tranquilidade toma conta de Fromville.
-Mas quando tudo parece finalmente em paz,
-algo sombrio começa a se aproximar.
-</p>
-
-</div>
-
+    <div class="content">
+        <div class="logo">FROM • TEMPORADA 4</div>
+        <h1>A Calmaria que Vem Antes</h1>
+        <p class="description">
+            Um raro momento de tranquilidade toma conta de Fromville. 
+            Mas quando tudo parece finalmente em paz, algo sombrio começa a se aproximar.
+        </p>
+    </div>
 </section>
 
-<section class="player">
+<main class="main-container">
+    
+    <div class="info-sidebar">
+        <div class="episode-cover">
+            <img src="https://cdn.mixdeseries.com.br/wp-content/uploads/2026/06/origem-4-temporada-episodio-9-explicado.webp" alt="Episódio 9">
+        </div>
+        <h2>Temporada 4 • Episódio 9</h2>
+        <div class="meta">Disponível em HD • Suspense/Terror</div>
+        
+        <div class="actions">
+            <button class="btn btn-primary">✓ Assistindo</button>
+        </div>
+    </div>
 
-<div class="episode-cover">
-<img src="https://cdn.mixdeseries.com.br/wp-content/uploads/2026/06/origem-4-temporada-episodio-9-explicado.webp" alt="Episódio 9">
-</div>
+    <div class="video-container">
+        <div class="video-box">
+            <iframe
+                src="https://drive.google.com/file/d/1l_NxTemZ4rTCr56-JrlKft9RpgFAvgC3/preview"
+                allow="autoplay; fullscreen"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
 
-<h2>Temporada 4 • Episódio 9</h2>
-
-<div class="video-box">
-
-<iframe
-src="https://drive.google.com/file/d/1l_NxTemZ4rTCr56-JrlKft9RpgFAvgC3/preview"
-allow="autoplay; fullscreen"
-allowfullscreen>
-</iframe>
-
-</div>
-
-</section>
+</main>
 
 <footer>
-FROM • A Calmaria que Vem Antes
+    FROM • A Calmaria que Vem Antes • © Todos os direitos reservados.
 </footer>
 
 </body>
-</html> 
+</html>
