@@ -22,7 +22,7 @@ body {
 
 /* Hero Section */
 .hero {
-    height: 65vh;
+    height: 50vh;
     background: url('https://api.metro1.com.br/filmes/164,serie-origem-transforma-uma-estrada-em-porta-de-entrada-para-um-suspense-sobre-a-sobrevivencia-e-o-sobrenatural-3.jpg') center center/cover;
     position: relative;
     display: flex;
@@ -52,13 +52,13 @@ body {
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 3px;
-    color: #e50914; /* Destaque em vermelho estilo streaming */
+    color: #e50914; 
     text-transform: uppercase;
     margin-bottom: 12px;
 }
 
 h1 {
-    font-size: 56px;
+    font-size: 52px;
     font-weight: 800;
     line-height: 1.1;
     margin-bottom: 18px;
@@ -69,103 +69,110 @@ h1 {
     font-size: 18px;
     line-height: 1.6;
     color: #b3b3b3;
-    font-weight: 400;
 }
 
-/* Main Container (Layout em Duas Colunas no Desktop) */
-.main-container {
-    max-width: 1240px;
+/* Área do Player Centralizado */
+.player-container {
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 40px 20px 80px;
-    display: grid;
-    grid-template-columns: 1fr 1.8fr;
-    gap: 40px;
-    align-items: start;
+    padding: 20px 20px 80px;
 }
 
-/* Coluna da Esquerda: Info e Capa */
-.info-sidebar {
-    position: sticky;
-    top: 30px;
-}
-
-.episode-cover {
-    width: 100%;
-    border-radius: 16px;
-    overflow: hidden;
-    margin-bottom: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
-    transition: transform 0.3s ease;
-}
-
-.episode-cover:hover {
-    transform: scale(1.02);
-}
-
-.episode-cover img {
-    width: 100%;
-    display: block;
-    object-fit: cover;
-}
-
-.info-sidebar h2 {
+.player-container h2 {
     font-size: 28px;
     font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.info-sidebar .meta {
-    font-size: 14px;
-    color: #777;
     margin-bottom: 20px;
 }
 
-/* Botões de interação fictícios para enriquecer o visual */
-.actions {
-    display: flex;
-    gap: 12px;
-}
-
-.btn {
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s ease;
-}
-
-.btn-primary {
-    background: #fff;
-    color: #000;
-}
-
-.btn-primary:hover {
-    background: #e6e6e6;
-}
-
-/* Coluna da Direita: Player de Vídeo */
-.video-container {
-    width: 100%;
-}
-
-.video-box {
+/* Caixa do Vídeo com Capa Sobreposta */
+.video-wrapper {
     position: relative;
+    width: 100%;
     padding-top: 56.25%; /* Proporção 16:9 */
     border-radius: 16px;
     overflow: hidden;
     background: #000;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgba(229, 9, 20, 0.05); /* Brilho sutil vermelho ao fundo */
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
 }
 
-.video-box iframe {
+.video-wrapper iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border: none;
+}
+
+/* Capa personalizada por cima do vídeo */
+.custom-poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease, transform 0.3s ease;
+}
+
+.custom-poster::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease;
+}
+
+.custom-poster:hover::before {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Ícone de Play estilizado */
+.play-button {
+    position: relative;
+    z-index: 11;
+    width: 80px;
+    height: 80px;
+    background: rgba(229, 9, 24, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgba(229, 9, 24, 0.5);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.play-button::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 15px 0 15px 26px;
+    border-color: transparent transparent transparent #fff;
+    margin-left: 6px;
+}
+
+.custom-poster:hover .play-button {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.custom-poster:hover .play-button::after {
+    border-color: transparent transparent transparent #e50914;
+}
+
+/* Classe para sumir com a capa após o clique */
+.custom-poster.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.05);
 }
 
 /* Footer */
@@ -178,21 +185,10 @@ footer {
     background: #070708;
 }
 
-/* Responsividade para Celulares e Tablets */
-@media(max-width: 992px){
-    .main-container {
-        grid-template-columns: 1fr; /* Força uma coluna única */
-        gap: 30px;
-    }
-    
-    .info-sidebar {
-        position: static;
-    }
-}
-
+/* Responsividade */
 @media(max-width: 768px){
     .hero {
-        height: 45vh;
+        height: 40vh;
     }
 
     .content {
@@ -207,12 +203,22 @@ footer {
         font-size: 15px;
     }
 
-    .main-container {
-        padding: 20px 16px 60px;
+    .player-container {
+        padding: 20px 12px 60px;
     }
 
-    .info-sidebar h2 {
+    .player-container h2 {
         font-size: 22px;
+    }
+
+    .play-button {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .play-button::after {
+        border-width: 10px 0 10px 18px;
+        margin-left: 4px;
     }
 }
 </style>
@@ -231,28 +237,25 @@ footer {
     </div>
 </section>
 
-<main class="main-container">
+<main class="player-container">
     
-    <div class="info-sidebar">
-        <div class="episode-cover">
-            <img src="https://cdn.mixdeseries.com.br/wp-content/uploads/2026/06/origem-4-temporada-episodio-9-explicado.webp" alt="Episódio 9">
-        </div>
-        <h2>Temporada 4 • Episódio 9</h2>
-        <div class="meta">Disponível em HD • Suspense/Terror</div>
-        
-        <div class="actions">
-            <button class="btn btn-primary">✓ Assistindo</button>
-        </div>
-    </div>
+    <h2>Temporada 4 • Episódio 9</h2>
 
-    <div class="video-container">
-        <div class="video-box">
-            <iframe
-                src="https://drive.google.com/file/d/1l_NxTemZ4rTCr56-JrlKft9RpgFAvgC3/preview"
-                allow="autoplay; fullscreen"
-                allowfullscreen>
-            </iframe>
+    <div class="video-wrapper">
+        
+        <!-- A Foto aplicada diretamente como capa por cima do Player -->
+        <div class="custom-poster" id="videoPoster" style="background-image: url('https://cdn.mixdeseries.com.br/wp-content/uploads/2026/06/origem-4-temporada-episodio-9-explicado.webp');">
+            <div class="play-button"></div>
         </div>
+
+        <!-- O Player oculto embaixo da capa -->
+        <iframe
+            id="videoPlayer"
+            src="https://drive.google.com/file/d/1l_NxTemZ4rTCr56-JrlKft9RpgFAvgC3/preview"
+            allow="autoplay; fullscreen"
+            allowfullscreen>
+        </iframe>
+
     </div>
 
 </main>
@@ -260,6 +263,22 @@ footer {
 <footer>
     FROM • A Calmaria que Vem Antes • © Todos os direitos reservados.
 </footer>
+
+<script>
+    const poster = document.getElementById('videoPoster');
+    const player = document.getElementById('videoPlayer');
+
+    poster.addEventListener('click', () => {
+        // Esconde a imagem com uma transição suave
+        poster.classList.add('hidden');
+        
+        // Altera o link do iframe adicionando o comando de autoplay para o vídeo começar sozinho
+        let videoSrc = player.src;
+        if (!videoSrc.includes('autoplay=1')) {
+            player.src = videoSrc + (videoSrc.includes('?') ? '&' : '?') + 'autoplay=1';
+        }
+    });
+</script>
 
 </body>
 </html>
