@@ -16,14 +16,14 @@ box-sizing:border-box;
 
 body{
 background:#000;
-color:white;
+color:#fff;
 font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",sans-serif;
 }
 
 .hero{
+height:55vh;
+background:url('https://api.metro1.com.br/filmes/164,serie-origem-transforma-uma-estrada-em-porta-de-entrada-para-um-suspense-sobre-a-sobrevivencia-e-o-sobrenatural-3.jpg') center center/cover;
 position:relative;
-height:100vh;
-background:url('https://cdn.mixdeseries.com.br/wp-content/uploads/2026/06/origem-4-temporada-episodio-9-explicado.webp') center/cover;
 display:flex;
 align-items:flex-end;
 }
@@ -32,83 +32,79 @@ align-items:flex-end;
 content:"";
 position:absolute;
 inset:0;
-background:
-linear-gradient(
+background:linear-gradient(
 180deg,
-rgba(0,0,0,.15) 0%,
-rgba(0,0,0,.45) 55%,
-rgba(0,0,0,.95) 100%
+rgba(0,0,0,.1),
+rgba(0,0,0,.45),
+rgba(0,0,0,.95)
 );
 }
 
 .content{
 position:relative;
 z-index:2;
+padding:50px;
 max-width:700px;
-padding:70px;
 }
 
 .logo{
-font-size:14px;
+font-size:13px;
 letter-spacing:2px;
-color:#bfbfbf;
-margin-bottom:15px;
+color:#c0c0c0;
+margin-bottom:10px;
 }
 
 h1{
-font-size:72px;
-font-weight:700;
+font-size:64px;
 line-height:1;
-margin-bottom:20px;
+margin-bottom:15px;
 }
 
 .description{
-font-size:20px;
+font-size:19px;
 line-height:1.6;
 color:#d0d0d0;
-margin-bottom:35px;
-}
-
-.watch-btn{
-display:inline-flex;
-align-items:center;
-gap:10px;
-background:white;
-color:black;
-padding:16px 32px;
-border-radius:999px;
-text-decoration:none;
-font-weight:600;
-font-size:17px;
 }
 
 .player{
 max-width:1200px;
 margin:auto;
-padding:40px 20px 80px;
+padding:30px 20px 80px;
+}
+
+.episode-cover{
+width:100%;
+border-radius:24px;
+overflow:hidden;
+margin-bottom:25px;
+box-shadow:0 20px 60px rgba(255,255,255,.08);
+}
+
+.episode-cover img{
+width:100%;
+display:block;
 }
 
 .player h2{
 font-size:32px;
-margin-bottom:25px;
-font-weight:600;
+margin-bottom:20px;
 }
 
 .video-box{
 position:relative;
 padding-top:56.25%;
-overflow:hidden;
 border-radius:24px;
+overflow:hidden;
 background:#111;
-box-shadow:0 20px 80px rgba(255,255,255,.08);
 }
 
 .video-box iframe{
 position:absolute;
-inset:0;
+top:0;
+left:0;
 width:100%;
 height:100%;
-border:0;
+border:none;
 }
 
 footer{
@@ -116,42 +112,47 @@ text-align:center;
 padding:40px;
 color:#777;
 font-size:14px;
+border-top:1px solid rgba(255,255,255,.08);
 }
+
+/* MOBILE */
 
 @media(max-width:768px){
 
 .hero{
-height:75vh;
-background-size:contain;
-background-repeat:no-repeat;
-background-position:top center;
-background-color:#000;
+height:40vh;
+background-size:cover;
+background-position:center;
 }
 
 .content{
-padding:25px;
+padding:20px;
 }
 
 h1{
-font-size:42px;
+font-size:38px;
 }
 
 .description{
-font-size:16px;
+font-size:15px;
 }
 
-.watch-btn{
-width:100%;
-justify-content:center;
+.player{
+padding:20px 12px 60px;
 }
 
 .player h2{
 font-size:24px;
 }
 
+.episode-cover{
+border-radius:16px;
+}
+
 .video-box{
 border-radius:16px;
 }
+
 }
 
 </style>
@@ -164,7 +165,7 @@ border-radius:16px;
 <div class="content">
 
 <div class="logo">
-Apple TV+ Style Experience
+FROM • TEMPORADA 4
 </div>
 
 <h1>A Calmaria que Vem Antes</h1>
@@ -175,15 +176,15 @@ Mas quando tudo parece finalmente em paz,
 algo sombrio começa a se aproximar.
 </p>
 
-<a href="#assistir" class="watch-btn">
-▶ Assistir Agora
-</a>
-
 </div>
 
 </section>
 
-<section class="player" id="assistir">
+<section class="player">
+
+<div class="episode-cover">
+<img src="https://cdn.mixdeseries.com.br/wp-content/uploads/2026/06/origem-4-temporada-episodio-9-explicado.webp" alt="Episódio 9">
+</div>
 
 <h2>Temporada 4 • Episódio 9</h2>
 
@@ -191,6 +192,7 @@ algo sombrio começa a se aproximar.
 
 <iframe
 src="https://drive.google.com/file/d/1l_NxTemZ4rTCr56-JrlKft9RpgFAvgC3/preview"
+allow="autoplay; fullscreen"
 allowfullscreen>
 </iframe>
 
