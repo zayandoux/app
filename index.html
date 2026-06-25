@@ -4,95 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>FROM • A Calmaria que Vem Antes</title>
+<title>FROM — A Calmaria que Vem Antes</title>
 
 <style>
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
 }
 
 body {
-    background: #0a0a0c;
-    color: #fff;
+    background: #000000;
+    color: #ffffff;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    overflow-x: hidden;
+    padding-bottom: 60px;
 }
 
-/* Hero Section */
-.hero {
-    height: 50vh;
-    background: url('https://api.metro1.com.br/filmes/164,serie-origem-transforma-uma-estrada-em-porta-de-entrada-para-um-suspense-sobre-a-sobrevivencia-e-o-sobrenatural-3.jpg') center center/cover;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-}
-
-.hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        180deg,
-        rgba(10, 10, 12, 0.2) 0%,
-        rgba(10, 10, 12, 0.7) 60%,
-        rgba(10, 10, 12, 1) 100%
-    );
-}
-
-.content {
-    position: relative;
-    z-index: 2;
-    padding: 0 60px 40px;
-    max-width: 800px;
-}
-
-.logo {
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: #e50914; 
-    text-transform: uppercase;
-    margin-bottom: 12px;
-}
-
-h1 {
-    font-size: 52px;
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 18px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-}
-
-.description {
-    font-size: 18px;
-    line-height: 1.6;
-    color: #b3b3b3;
-}
-
-/* Área do Player Centralizado */
-.player-container {
-    max-width: 1000px;
+/* Container Principal inspirado no app Apple TV */
+.apple-container {
+    max-width: 960px;
     margin: 0 auto;
-    padding: 20px 20px 80px;
+    padding: 40px 24px;
 }
 
-.player-container h2 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-/* Caixa do Vídeo com Capa Sobreposta */
+/* Área do Player e Capa */
 .video-wrapper {
     position: relative;
     width: 100%;
-    padding-top: 56.25%; /* Proporção 16:9 */
-    border-radius: 16px;
+    padding-top: 56.25%; /* Mantém a proporção 16:9 perfeita da foto e do vídeo */
+    border-radius: 14px;
     overflow: hidden;
-    background: #000;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    background: #151516;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
 .video-wrapper iframe {
@@ -104,48 +48,40 @@ h1 {
     border: none;
 }
 
-/* Capa personalizada por cima do vídeo */
+/* Capa que cobre o player (100% inteira no mobile e desktop) */
 .custom-poster {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-size: cover;
+    background-size: contain; /* Garante que a foto NUNCA seja cortada */
+    background-repeat: no-repeat;
     background-position: center;
+    background-color: #151516; /* Fundo escuro elegante para preencher se necessário */
     cursor: pointer;
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.5s ease, transform 0.3s ease;
+    transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.custom-poster::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.3);
-    transition: background 0.3s ease;
-}
-
-.custom-poster:hover::before {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-/* Ícone de Play estilizado */
+/* Ícone de Play estilo Apple TV (Círculo desfocado/translúcido) */
 .play-button {
     position: relative;
     z-index: 11;
-    width: 80px;
-    height: 80px;
-    background: rgba(229, 9, 24, 0.9);
+    width: 72px;
+    height: 72px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 30px rgba(229, 9, 24, 0.5);
-    transition: transform 0.3s ease, background 0.3s ease;
+    transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .play-button::after {
@@ -154,71 +90,92 @@ h1 {
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 15px 0 15px 26px;
-    border-color: transparent transparent transparent #fff;
-    margin-left: 6px;
+    border-width: 12px 0 12px 20px;
+    border-color: transparent transparent transparent #ffffff;
+    margin-left: 4px;
 }
 
 .custom-poster:hover .play-button {
-    transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.95);
+    transform: scale(1.08);
+    background: rgba(255, 255, 255, 0.25);
 }
 
-.custom-poster:hover .play-button::after {
-    border-color: transparent transparent transparent #e50914;
-}
-
-/* Classe para sumir com a capa após o clique */
 .custom-poster.hidden {
     opacity: 0;
     pointer-events: none;
-    transform: scale(1.05);
 }
 
-/* Footer */
+/* Detalhes do Episódio (Estilo Apple TV Informações) */
+.info-section {
+    margin-top: 32px;
+    max-width: 700px;
+}
+
+/* Etiqueta fosca elegante substituindo o vermelho */
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #aeaeaf;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 12px;
+}
+
+.meta-info {
+    font-size: 15px;
+    color: #86868b;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.description {
+    font-size: 17px;
+    line-height: 1.5;
+    color: #e8e8ed;
+    font-weight: 400;
+}
+
+/* Rodapé minimalista */
 footer {
     text-align: center;
-    padding: 40px;
-    color: #555;
-    font-size: 13px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    background: #070708;
+    margin-top: 80px;
+    color: #6e6e73;
+    font-size: 12px;
 }
 
-/* Responsividade */
+/* Ajustes finos para telas menores (Celular) */
 @media(max-width: 768px){
-    .hero {
-        height: 40vh;
+    .apple-container {
+        padding: 20px 16px;
     }
-
-    .content {
-        padding: 0 20px 30px;
+    
+    .info-section {
+        margin-top: 24px;
     }
 
     h1 {
-        font-size: 34px;
+        font-size: 26px;
     }
 
     .description {
         font-size: 15px;
     }
 
-    .player-container {
-        padding: 20px 12px 60px;
-    }
-
-    .player-container h2 {
-        font-size: 22px;
-    }
-
     .play-button {
         width: 60px;
         height: 60px;
-    }
-    
-    .play-button::after {
-        border-width: 10px 0 10px 18px;
-        margin-left: 4px;
     }
 }
 </style>
@@ -226,29 +183,17 @@ footer {
 
 <body>
 
-<section class="hero">
-    <div class="content">
-        <div class="logo">FROM • TEMPORADA 4</div>
-        <h1>A Calmaria que Vem Antes</h1>
-        <p class="description">
-            Um raro momento de tranquilidade toma conta de Fromville. 
-            Mas quando tudo parece finalmente em paz, algo sombrio começa a se aproximar.
-        </p>
-    </div>
-</section>
+<main class="apple-container">
 
-<main class="player-container">
-    
-    <h2>Temporada 4 • Episódio 9</h2>
-
+    <!-- Player de Vídeo e Capa Unificados -->
     <div class="video-wrapper">
         
-        <!-- A Foto aplicada diretamente como capa por cima do Player -->
+        <!-- A Foto aplicada com 'contain' para nunca cortar no celular -->
         <div class="custom-poster" id="videoPoster" style="background-image: url('https://cdn.mixdeseries.com.br/wp-content/uploads/2026/06/origem-4-temporada-episodio-9-explicado.webp');">
             <div class="play-button"></div>
         </div>
 
-        <!-- O Player oculto embaixo da capa -->
+        <!-- O Player oculto embaixo da foto -->
         <iframe
             id="videoPlayer"
             src="https://drive.google.com/file/d/1l_NxTemZ4rTCr56-JrlKft9RpgFAvgC3/preview"
@@ -258,10 +203,21 @@ footer {
 
     </div>
 
+    <!-- Seção de Texto Estilo Apple TV -->
+    <section class="info-section">
+        <div class="badge">FROM • TEMPORADA 4</div>
+        <h1>A Calmaria que Vem Antes</h1>
+        <div class="meta-info">Episódio 9 • Suspense • 2026</div>
+        <p class="description">
+            Um raro momento de tranquilidade toma conta de Fromville. 
+            Mas quando tudo parece finalmente em paz, algo sombrio começa a se aproximar.
+        </p>
+    </section>
+
 </main>
 
 <footer>
-    FROM • A Calmaria que Vem Antes • © Todos os direitos reservados.
+    Apple TV app design inspired • FROM — A Calmaria que Vem Antes
 </footer>
 
 <script>
@@ -269,10 +225,9 @@ footer {
     const player = document.getElementById('videoPlayer');
 
     poster.addEventListener('click', () => {
-        // Esconde a imagem com uma transição suave
         poster.classList.add('hidden');
         
-        // Altera o link do iframe adicionando o comando de autoplay para o vídeo começar sozinho
+        // Ativa o autoplay ao clicar na capa
         let videoSrc = player.src;
         if (!videoSrc.includes('autoplay=1')) {
             player.src = videoSrc + (videoSrc.includes('?') ? '&' : '?') + 'autoplay=1';
